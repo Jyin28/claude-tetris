@@ -253,6 +253,9 @@ function loop(ts) {
     }
   }
   draw();
+  // endGame() can be triggered from inside this frame (via lockPiece -> spawn);
+  // don't schedule another frame or the game keeps running behind the overlay.
+  if (gameOver || paused) return;
   animId = requestAnimationFrame(loop);
 }
 
